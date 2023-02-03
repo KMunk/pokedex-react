@@ -90,6 +90,7 @@ function App() {
                     <Flex width={"100%"} justifyContent={"flex-end"}>
                       {p.types.map((t) => (
                         <Image
+                          title={t.type.name}
                           key={`${p.id}_${t.type.name}`}
                           src={`https://raw.githubusercontent.com/KMunk/pokedex-react/main/src/assets/types/${capitalizeFirstLetter(
                             t.type.name
