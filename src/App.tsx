@@ -16,9 +16,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import FairyImg from "./assets/Fairy.svg";
 import { PokemonClient } from "pokenode-ts";
-import type { Types } from "pokenode-ts";
 import { useQuery } from "@tanstack/react-query";
 
 const getPokemon = async () => {
