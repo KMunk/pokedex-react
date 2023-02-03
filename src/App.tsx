@@ -79,13 +79,16 @@ function App() {
           templateColumns={"repeat(auto-fit, minmax(250px, 1fr))"}
         >
           {pokemon.map((p) => (
-            <GridItem>
+            <GridItem key={p.id}>
               <Card key={p.id} background={colors[p.types[0].type.name]}>
                 <CardBody>
                   <VStack>
                     <Flex width={"100%"} justifyContent={"flex-end"}>
                       {p.types.map((t) => (
-                        <Image src={`./src/assets/types/${t.type.name}.svg`} />
+                        <Image
+                          key={`${p.id}_${t.type.name}`}
+                          src={`https://raw.githubusercontent.com/KMunk/pokedex-react/main/src/assets/types/${t.type.name}.svg`}
+                        />
                       ))}
                     </Flex>
                     <Image
