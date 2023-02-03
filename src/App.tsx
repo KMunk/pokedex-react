@@ -54,6 +54,10 @@ const colors: { [key: string]: string } = {
   fairy: "#D685AD",
 };
 
+function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function App() {
   const { isLoading, data, isError } = useQuery({
     queryKey: ["pokemon"],
@@ -87,7 +91,9 @@ function App() {
                       {p.types.map((t) => (
                         <Image
                           key={`${p.id}_${t.type.name}`}
-                          src={`https://raw.githubusercontent.com/KMunk/pokedex-react/main/src/assets/types/${t.type.name}.svg`}
+                          src={`https://raw.githubusercontent.com/KMunk/pokedex-react/main/src/assets/types/${capitalizeFirstLetter(
+                            t.type.name
+                          )}.svg`}
                         />
                       ))}
                     </Flex>
