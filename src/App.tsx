@@ -18,11 +18,12 @@ import {
 
 import { PokemonClient } from "pokenode-ts";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const getPokemon = async () => {
   const metaPokemonData = [];
   const api = new PokemonClient();
-  const pokemons = await api.listPokemons(0, 1000);
+  const pokemons = await api.listPokemons(0, 100);
 
   for (const pokemon of pokemons.results) {
     metaPokemonData.push(await api.getPokemonByName(pokemon.name));
@@ -57,6 +58,7 @@ function capitalizeFirstLetter(str: string) {
 }
 
 function App() {
+  const [hoveredKeyID, setHoveredKeyID] = useState(0);
   const { isLoading, data, isError } = useQuery({
     queryKey: ["pokemon"],
     queryFn: getPokemon,
@@ -71,10 +73,9 @@ function App() {
   if (data) {
     let pokemon = data;
     console.log(pokemon);
-    //p.types.find((t) => t.slot == 1)?.type
+
     return (
       <>
-        {/* <FairyImg /> */}
         <Grid
           margin="2"
           gap="4"
@@ -82,7 +83,21 @@ function App() {
         >
           {pokemon.map((p) => (
             <GridItem key={p.id}>
-              <Card key={p.id} background={colors[p.types[0].type.name]}>
+              <Card
+                onMouseEnter={() => setHoveredKeyID(p.id)}
+                onMouseLeave={() => setHoveredKeyID(0)}
+                style={
+                  hoveredKeyID === p.id
+                    ? {
+                        transform: "scale(1.15)",
+                        zIndex: "9999",
+                        transition: "transform 0.25s",
+                      }
+                    : { transition: "transform 0.25s" }
+                }
+                key={p.id}
+                background={colors[p.types[0].type.name]}
+              >
                 <CardBody>
                   <VStack>
                     <Flex width={"100%"} justifyContent={"flex-end"}>
