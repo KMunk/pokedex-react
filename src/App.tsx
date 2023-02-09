@@ -16,6 +16,7 @@ import {
 
 import { PokemonClient } from "pokenode-ts";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const getPokemon = async () => {
   const metaPokemonData = [];
@@ -27,6 +28,12 @@ const getPokemon = async () => {
   }
 
   return metaPokemonData.filter((pokemon) => pokemon.is_default);
+};
+
+const testRequest = async () => {
+  const req = await axios.get("http://localhost:5001/WeatherForecast");
+
+  console.log(req.data);
 };
 
 function App() {
@@ -67,7 +74,13 @@ function App() {
               <Divider />
               <CardFooter>
                 <ButtonGroup spacing="2">
-                  <Button variant="solid" colorScheme="blue">
+                  <Button
+                    variant="solid"
+                    colorScheme="blue"
+                    onClick={async () => {
+                      await testRequest();
+                    }}
+                  >
                     Add to Pokedex
                   </Button>
                 </ButtonGroup>
